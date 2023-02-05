@@ -7,10 +7,10 @@ function App() {
 
     return (
         <div className="App">
+            <Counter count={count} />
             <button onClick={() => setCount((count) => count + 1)}>
-                count is {count}
+                add count
             </button>
-            <Counter />
         </div>
     );
 }
