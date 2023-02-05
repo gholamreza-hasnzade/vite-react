@@ -21,7 +21,7 @@ function App() {
                 count={count}
                 inc={increaseCount}
                 des={decreaseCount}
-                reast={reastCount}
+                rest={reastCount}
             />
         </div>
     );
