@@ -15,6 +15,9 @@ const Counter = ({ count, inc, des, rest }) => {
 };
 Counter.propTypes = {
     count: PropTypes.number,
+    inc: PropTypes.func,
+    des: PropTypes.func,
+    rest: PropTypes.func,
 };
 
 export default Counter;
