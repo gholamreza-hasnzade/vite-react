@@ -5,18 +5,19 @@ import "./App.css";
 function App() {
     const [count, setCount] = useState(0);
 
-    const users = [
+    /*  const users = [
         {
             firstName: "Gholamreza",
             lastName: "Hassanzadeh",
         },
     ];
 
-    const element = <h1>{users[0].firstName}</h1>;
+    const element = <h1>{users[0].firstName}</h1>; */
+    const user = "gholamreza";
     return (
         <div className="App">
             <div>
-                {element}
+                {user === "gholamreza" ? <p>true</p> : <p>false</p>}
                 <a href="https://vitejs.dev" target="_blank">
                     <img src="/vite.svg" className="logo" alt="Vite logo" />
                 </a>
