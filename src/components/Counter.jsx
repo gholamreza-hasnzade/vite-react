@@ -8,8 +8,4 @@ const Counter = ({ count }) => {
     );
 };
 
-Counter.defaultProps = {
-    count: 42,
- };
-
 export default Counter;
