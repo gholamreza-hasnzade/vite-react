@@ -13,11 +13,25 @@ function App() {
     ];
 
     const element = <h1>{users[0].firstName}</h1>; */
-    const user = "gholamreza";
+    /* const user = "gholamreza"; */
+    const users = [
+        {
+            id: 1,
+            firstName: "Reza",
+        },
+        {
+            id: 2,
+            firstName: "Mammd",
+        },
+        {
+            id: 3,
+            firstName: "Hassan",
+        },
+    ];
     return (
         <div className="App">
             <div>
-                {user === "gholamreza" ? <p>true</p> : <p>false</p>}
+                {/* {user === "gholamreza" ? <p>true</p> : <p>false</p>} */}
                 <a href="https://vitejs.dev" target="_blank">
                     <img src="/vite.svg" className="logo" alt="Vite logo" />
                 </a>
@@ -29,7 +43,12 @@ function App() {
                     />
                 </a>
             </div>
-            <h1>Vite + React</h1>
+            {users.map((user) => (
+                <p style={{ display: "flex" }} key={user.id}>
+                    {user.firstName}
+                </p>
+            ))}
+
             <div className="card">
                 <button onClick={() => setCount((count) => count + 1)}>
                     count is {count}
