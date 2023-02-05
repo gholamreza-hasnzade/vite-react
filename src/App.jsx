@@ -11,6 +11,9 @@ function App() {
             <button onClick={() => setCount((count) => count + 1)}>
                 add count
             </button>
+            <button onClick={() => setCount((count) => count - 1)}>
+                mines count
+            </button>
         </div>
     );
 }
