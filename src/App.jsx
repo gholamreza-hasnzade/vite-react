@@ -9,6 +9,9 @@ function App() {
         setCount(count + 1);
     };
     const decreaseCount = () => {
+        if (count === 0) {
+            return alert("دیگه منفی نباشهِ");
+        }
         setCount(count - 1);
     };
 
