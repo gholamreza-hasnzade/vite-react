@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import Navbar from "./components/Navbar";
-import Contacts from "./components/contact/Contacts";
+import { Contacts, Navbar } from "./components";
+
 
 function App() {
     const [getContacts, setContacts] = useState([]);
