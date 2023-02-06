@@ -3,7 +3,7 @@ import { CURRENTLINE, ORANGE, PINK } from "../../helpers/colors";
 import nofound from "../../assets/no-found.gif";
 import Contact from "./Contact";
 
-const Contacts = ({ contacts }) => {
+const Contacts = ({ contacts, loading }) => {
     return (
         <>
             <section className="container">
@@ -23,6 +23,7 @@ const Contacts = ({ contacts }) => {
                     </div>
                 </div>
             </section>
+            
             <section className="container">
                 <div className="row">
                     {contacts.length > 0 ? (
