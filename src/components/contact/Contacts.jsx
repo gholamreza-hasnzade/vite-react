@@ -1,6 +1,6 @@
 import React from "react";
 import { CURRENTLINE, ORANGE, PINK } from "../../helpers/colors";
-import nofound from "../../assets/no-found.gif"
+import nofound from "../../assets/no-found.gif";
 import Contact from "./Contact";
 
 const Contacts = ({ contacts }) => {
