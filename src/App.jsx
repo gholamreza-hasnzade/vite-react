@@ -9,7 +9,7 @@ function App() {
     return (
         <div className="App">
             <Navbar />
-            <Contacts contacts={getContacts} />
+            <Contacts contacts={getContacts}  loading={loading}/>
         </div>
     );
 }
