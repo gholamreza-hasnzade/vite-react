@@ -1,5 +1,6 @@
 import React from "react";
 import { BACKGROUND, PURPLE } from "../helpers/colors";
+import SearchContact from "./contact/SearchContact";
 
 const Navbar = () => {
     return (
@@ -19,7 +20,9 @@ const Navbar = () => {
                             <span style={{ color: PURPLE }}>مخاطبین</span>
                         </div>
                     </div>
-                    <div className="col"></div>
+                    <div className="col">
+                        <SearchContact />
+                    </div>
                 </div>
             </div>
         </nav>
