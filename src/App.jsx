@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { Contacts, Navbar } from "./components";
-import { Routes, Route, useNavigate, Navigate } from "react-router-dom";
+import { AddContact, Contact, Contacts, EditContact, Navbar } from "./components";
+import { Routes, Route, Navigate } from "react-router-dom";
 
 function App() {
     const [getContacts, setContacts] = useState([]);
@@ -17,6 +17,9 @@ function App() {
                         <Contacts contacts={getContacts} loading={loading} />
                     }
                 />
+                <Route path="/contacts/add" element={<AddContact />} />
+                <Route path="/contacts/prev/:contactId" element={<Contact />} />
+                <Route path="/contacts/edit/:/contactId" element={<EditContact />} />
             </Routes>
         </div>
     );
