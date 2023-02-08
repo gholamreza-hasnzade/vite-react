@@ -2,9 +2,10 @@ import React from "react";
 
 import { Spinner } from "../";
 import { CURRENTLINE, CYAN, PURPLE } from "../../helpers/colors";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
-const ViewContact = () => {
+const ViewContact = ({loading}) => {
+    const { contactId } = useParams();
     return (
         <>
             <section className="view-contact-intro p3">
@@ -33,7 +34,7 @@ const ViewContact = () => {
                         <div className="row align-items-center">
                             <div className="col-md-3">
                                 <img
-                                    src={""}
+                                    src="https://via.placeholder.com/200"
                                     alt=""
                                     className="img-fluid rounded"
                                     style={{ border: `1px solid ${PURPLE}` }}

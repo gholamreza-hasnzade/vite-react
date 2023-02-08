@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import {
     AddContact,
-    Contact,
     Contacts,
     EditContact,
     Navbar,
+    ViewContact,
 } from "./components";
 import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
 
@@ -108,7 +108,7 @@ function App() {
                         />
                     }
                 />
-                <Route path="/contacts/prev/:contactId" element={<Contact />} />
+                <Route path="/contacts/prev/:contactId" element={<ViewContact loading={loading} />} />
                 <Route
                     path="/contacts/edit/:/contactId"
                     element={<EditContact />}
