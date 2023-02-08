@@ -1,10 +1,38 @@
-import React, { useState } from "react";
-import { AddContact, Contact, Contacts, EditContact, Navbar } from "./components";
+import React, { useEffect, useState } from "react";
+import {
+    AddContact,
+    Contact,
+    Contacts,
+    EditContact,
+    Navbar,
+} from "./components";
 import { Routes, Route, Navigate } from "react-router-dom";
+
+import { getAllContacts, getAllGroups } from "./services/contactService";
 
 function App() {
     const [getContacts, setContacts] = useState([]);
+    const [getGroups, setGroups] = useState([]);
     const [loading, setLoading] = useState(false);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                setLoading(true);
+                const { data: contactsData } = await getAllContacts();
+                const { data: groupsData } = await getAllGroups();
+
+                setContacts(contactsData);
+                setGroups(groupsData);
+                setLoading(false);
+            } catch (err) {
+                console.log(err.message);
+                setLoading(false);
+            }
+        };
+
+        fetchData();
+    }, []);
 
     return (
         <div className="App">
@@ -19,7 +47,10 @@ function App() {
                 />
                 <Route path="/contacts/add" element={<AddContact />} />
                 <Route path="/contacts/prev/:contactId" element={<Contact />} />
-                <Route path="/contacts/edit/:/contactId" element={<EditContact />} />
+                <Route
+                    path="/contacts/edit/:/contactId"
+                    element={<EditContact />}
+                />
             </Routes>
         </div>
     );
