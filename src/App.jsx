@@ -1,4 +1,7 @@
 import React, { useEffect, useState } from "react";
+import { confirmAlert } from "react-confirm-alert";
+import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
+
 import {
     AddContact,
     Contacts,
@@ -6,10 +9,10 @@ import {
     Navbar,
     ViewContact,
 } from "./components";
-import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
 
 import {
     createContact,
+    deleteContact,
     getAllContacts,
     getAllGroups,
 } from "./services/contactService";
@@ -82,6 +85,24 @@ function App() {
             }
         } catch (err) {
             console.log(err.message);
+        }
+    };
+
+    const confirm = (contactId, contactFullname) => {
+        
+    }
+    const removeContact = async (contactId) => {
+        try {
+            setLoading(true);
+            const response = await deleteContact(contactId);
+            if (response) {
+                const { data: contactsData } = await getAllContacts();
+                setContacts(contactsData);
+                setLoading(false);
+            }
+        } catch (err) {
+            console.log(err.message);
+            setLoading(false);
         }
     };
     return (
