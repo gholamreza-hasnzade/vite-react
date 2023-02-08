@@ -11,7 +11,55 @@ import { Spinner } from "../";
 import { COMMENT, ORANGE, PURPLE } from "../../helpers/colors";
 import maNtakingNote from "../../assets/man-taking-note.png";
 
-const EditContact = ({ loading }) => {
+const EditContact = () => {
+    const { contactId } = useParams();
+    const navigate = useNavigate();
+    const [state, setState] = useState({
+        loading: false,
+        contact: {
+            fullname: "",
+            photo: "",
+            mobile: "",
+            email: "",
+            job: "",
+            group: "",
+        },
+        groups: [],
+    });
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                setState({ ...state, loading: true });
+                const { data: contactData } = await getContact(contactId);
+                const { data: groupsData } = await getAllGroups();
+
+                console.log(groupsData);
+                setState({
+                    ...state,
+                    loading: false,
+                    contact: contactData,
+                    groups: groupsData,
+                });
+            } catch (error) {
+                console.log(error.message);
+                setState({ ...state, loading: false });
+            }
+        };
+        fetchData();
+    }, []);
+
+    const setContactInfo = (event) => {
+        setState({
+            ...state,
+            contact: {
+                ...state.contact,
+                [event.target.name]: [event.target.value],
+            },
+        });
+    };
+
+    const { loading, contact, groups } = state;
     return (
         <>
             {loading ? (
@@ -46,8 +94,8 @@ const EditContact = ({ loading }) => {
                                                     name="fullname"
                                                     type="text"
                                                     className="form-control"
-                                                    /*   value={contact.fullname}
-                                                    onChange={setContactInfo} */
+                                                    value={contact.fullname}
+                                                    onChange={setContactInfo}
                                                     required={true}
                                                     placeholder="نام و نام خانوادگی"
                                                 />
@@ -56,8 +104,8 @@ const EditContact = ({ loading }) => {
                                                 <input
                                                     name="photo"
                                                     type="text"
-                                                    /*   value={contact.photo}
-                                                    onChange={setContactInfo} */
+                                                    value={contact.photo}
+                                                    onChange={setContactInfo}
                                                     className="form-control"
                                                     required={true}
                                                     placeholder="آدرس تصویر"
@@ -68,8 +116,8 @@ const EditContact = ({ loading }) => {
                                                     name="mobile"
                                                     type="number"
                                                     className="form-control"
-                                                    /*   value={contact.mobile}
-                        onChange={setContactInfo} */
+                                                    value={contact.mobile}
+                                                    onChange={setContactInfo}
                                                     required={true}
                                                     placeholder="شماره موبایل"
                                                 />
@@ -79,8 +127,8 @@ const EditContact = ({ loading }) => {
                                                     name="email"
                                                     type="email"
                                                     className="form-control"
-                                                    /* value={contact.email}
-                                                    onChange={setContactInfo} */
+                                                    value={contact.email}
+                                                    onChange={setContactInfo}
                                                     required={true}
                                                     placeholder="آدرس ایمیل"
                                                 />
@@ -90,8 +138,8 @@ const EditContact = ({ loading }) => {
                                                     name="job"
                                                     type="text"
                                                     className="form-control"
-                                                    /* value={contact.job}
-                        onChange={setContactInfo} */
+                                                    value={contact.job}
+                                                    onChange={setContactInfo}
                                                     required={true}
                                                     placeholder="شغل"
                                                 />
@@ -99,20 +147,23 @@ const EditContact = ({ loading }) => {
                                             <div className="mb-2">
                                                 <select
                                                     name="group"
-                                                    /*  value={contact.group}
-                        onChange={setContactInfo} */
+                                                    value={contact.group}
+                                                    onChange={setContactInfo}
                                                     required={true}
                                                     className="form-control"
                                                 >
                                                     <option value="">
                                                         انتخاب گروه
                                                     </option>
-                                                    {/* {groups.length > 0 &&
-                          groups.map((group) => (
-                            <option key={group.id} value={group.id}>
-                              {group.name}
-                            </option>
-                          ))} */}
+                                                    {groups.length > 0 &&
+                                                        groups.map((group) => (
+                                                            <option
+                                                                key={group.id}
+                                                                value={group.id}
+                                                            >
+                                                                {group.name}
+                                                            </option>
+                                                        ))}
                                                 </select>
                                             </div>
 
@@ -140,7 +191,7 @@ const EditContact = ({ loading }) => {
                                     </div>
                                     <div className="col-md-4">
                                         <img
-                                           /*  src={contact.photo} */
+                                            src={contact?.photo}
                                             className="img-fluid rounded"
                                             style={{
                                                 border: `1px solid ${PURPLE}`,
