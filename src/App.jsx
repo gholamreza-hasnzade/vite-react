@@ -110,7 +110,7 @@ function App() {
                 />
                 <Route path="/contacts/prev/:contactId" element={<ViewContact />} />
                 <Route
-                    path="/contacts/edit/:/contactId"
+                    path="/contacts/edit/:contactId"
                     element={<EditContact />}
                 />
             </Routes>

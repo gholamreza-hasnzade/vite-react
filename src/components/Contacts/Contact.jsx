@@ -28,7 +28,7 @@ const Contact = ({ contact }) => {
                                 <li className="list-group-item list-group-item-dark">
                                     شماره موبایل :{"  "}
                                     <span className="fw-bold">
-                                        {contact?.phone}
+                                        {contact?.mobile}
                                     </span>
                                 </li>
 
@@ -49,12 +49,13 @@ const Contact = ({ contact }) => {
                                 <i className="fa fa-eye" />
                             </Link>
 
-                            <button
+                            <Link
+                                to={`/contacts/edit/${contact?.id}`}
                                 className="btn my-1"
                                 style={{ backgroundColor: CYAN }}
                             >
                                 <i className="fa fa-pen" />
-                            </button>
+                            </Link>
                             <button
                                 className="btn my-1"
                                 style={{ backgroundColor: RED }}
