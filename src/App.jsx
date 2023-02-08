@@ -69,8 +69,7 @@ function App() {
         };
 
         fetchData();
-    }, [forceRender])
-    
+    }, [forceRender]);
 
     const createContactForm = async (event) => {
         event.preventDefault();
@@ -108,10 +107,18 @@ function App() {
                         />
                     }
                 />
-                <Route path="/contacts/prev/:contactId" element={<ViewContact />} />
+                <Route
+                    path="/contacts/prev/:contactId"
+                    element={<ViewContact />}
+                />
                 <Route
                     path="/contacts/edit/:contactId"
-                    element={<EditContact />}
+                    element={
+                        <EditContact
+                            forceRender={forceRender}
+                            setForceRender={setForceRender}
+                        />
+                    }
                 />
             </Routes>
         </div>

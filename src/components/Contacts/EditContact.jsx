@@ -11,7 +11,7 @@ import { Spinner } from "../";
 import { COMMENT, ORANGE, PURPLE } from "../../helpers/colors";
 import maNtakingNote from "../../assets/man-taking-note.png";
 
-const EditContact = () => {
+const EditContact = ({ forceRender, setForceRender }) => {
     const { contactId } = useParams();
     const navigate = useNavigate();
     const [state, setState] = useState({
@@ -59,6 +59,24 @@ const EditContact = () => {
         });
     };
 
+    const submitForm = async (event) => {
+        event.preventDefault();
+        try {
+            setState({ ...state, loading: true });
+
+            const { data } = await updateContact(state.contact, contactId);
+            setState({ ...state, loading: false });
+
+            if (data) {
+                setForceRender(!forceRender);
+                navigate("/contacts");
+            }
+        } catch (err) {
+            console.log(err);
+            setState({ ...state, loading: false });
+        }
+    };
+
     const { loading, contact, groups } = state;
     return (
         <>
@@ -88,7 +106,7 @@ const EditContact = () => {
                             >
                                 <div className="col-md-8">
                                     <div className="col-md-8">
-                                        <form>
+                                        <form onSubmit={submitForm}>
                                             <div className="mb-2">
                                                 <input
                                                     name="fullname"
