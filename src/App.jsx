@@ -19,6 +19,7 @@ function App() {
     const [getContacts, setContacts] = useState([]);
     const [getGroups, setGroups] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [forceRender, setForceRender] = useState(false);
     const [getContact, setContact] = useState({
         fullname: "",
         photo: "",
@@ -54,13 +55,31 @@ function App() {
         fetchData();
     }, []);
 
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                setLoading(true);
+                const { data: contactsData } = await getAllContacts();
+                setContacts(contactsData);
+                setLoading(false);
+            } catch (err) {
+                console.log(err.message);
+                setLoading(false);
+            }
+        };
+
+        fetchData();
+    }, [forceRender])
+    
+
     const createContactForm = async (event) => {
         event.preventDefault();
         try {
             const { status } = await createContact(getContact);
             if (status === 201) {
-                setContact({})
-                navigate("/contacts")
+                setContact({});
+                setForceRender(!forceRender);
+                navigate("/contacts");
             }
         } catch (err) {
             console.log(err.message);
