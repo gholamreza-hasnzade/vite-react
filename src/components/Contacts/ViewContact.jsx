@@ -1,11 +1,40 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import { Spinner } from "../";
 import { CURRENTLINE, CYAN, PURPLE } from "../../helpers/colors";
 import { Link, useParams } from "react-router-dom";
+import { getContact, getGroup } from "../../services/contactService";
 
-const ViewContact = ({loading}) => {
+const ViewContact = () => {
     const { contactId } = useParams();
+    const [state, setstate] = useState({
+        loading: false,
+        contact: {},
+        group: {},
+    });
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                setstate({ ...state, loading: true });
+                const { data: contactData } = await getContact(contactId);
+                const { data: groupData } = await getGroup(contactData.group);
+
+                setstate({
+                    ...state,
+                    loading: false,
+                    contact: contactData,
+                    group: groupData,
+                });
+            } catch (error) {
+                console.log(error.message);
+                setstate({ ...state, loading: false });
+            }
+        };
+        fetchData();
+    }, []);
+
+    const { loading, contact, group } = state;
     return (
         <>
             <section className="view-contact-intro p3">
@@ -47,31 +76,31 @@ const ViewContact = ({loading}) => {
                                             <li className="list-group-item list-group-item-dark">
                                                 نام و نام خانوادگی :{" "}
                                                 <span className="fw-bold">
-                                                    contact.fullname
+                                                    {contact?.fullname}
                                                 </span>
                                             </li>
                                             <li className="list-group-item list-group-item-dark">
                                                 شماره موبایل :{" "}
                                                 <span className="fw-bold">
-                                                    contact.mobile
+                                                    {contact?.mobile}
                                                 </span>
                                             </li>
                                             <li className="list-group-item list-group-item-dark">
                                                 ایمیل :{" "}
                                                 <span className="fw-bold">
-                                                    contact.email
+                                                    {contact?.email}
                                                 </span>
                                             </li>
                                             <li className="list-group-item list-group-item-dark">
                                                 شغل :{" "}
                                                 <span className="fw-bold">
-                                                    contact.job
+                                                    {contact?.job}
                                                 </span>
                                             </li>
                                             <li className="list-group-item list-group-item-dark">
                                                 گروه :{" "}
                                                 <span className="fw-bold">
-                                                    group.name
+                                                    {group?.name}
                                                 </span>
                                             </li>
                                         </ul>

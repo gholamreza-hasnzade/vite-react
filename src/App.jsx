@@ -108,7 +108,7 @@ function App() {
                         />
                     }
                 />
-                <Route path="/contacts/prev/:contactId" element={<ViewContact loading={loading} />} />
+                <Route path="/contacts/prev/:contactId" element={<ViewContact />} />
                 <Route
                     path="/contacts/edit/:/contactId"
                     element={<EditContact />}
