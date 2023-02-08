@@ -47,7 +47,7 @@ function App() {
                 />
                 <Route
                     path="/contacts/add"
-                    element={<AddContact loading={loading} />}
+                    element={<AddContact loading={loading} groups={getGroups} />}
                 />
                 <Route path="/contacts/prev/:contactId" element={<Contact />} />
                 <Route

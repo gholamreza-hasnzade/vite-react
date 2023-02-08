@@ -5,7 +5,7 @@ import { COMMENT, GREEN, PURPLE } from "../../helpers/colors";
 import { Spinner } from "../";
 import { Link } from "react-router-dom";
 
-const AddContact = ({ loading }) => {
+const AddContact = ({ loading, groups }) => {
     return (
         <>
             {loading ? (
@@ -102,15 +102,15 @@ const AddContact = ({ loading }) => {
                                             <option value="">
                                                 انتخاب گروه
                                             </option>
-                                            {/*   {groups.length > 0 &&
-                              groups.map((group) => (
-                                  <option
-                                      key={group.id}
-                                      value={group.id}
-                                  >
-                                      {group.name}
-                                  </option>
-                              ))} */}
+                                            {groups.length > 0 &&
+                                                groups.map((group) => (
+                                                    <option
+                                                        key={group.id}
+                                                        value={group.id}
+                                                    >
+                                                        {group.name}
+                                                    </option>
+                                                ))}
                                         </select>
                                     </div>
                                     <div className="mx-2">
