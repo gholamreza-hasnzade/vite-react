@@ -5,7 +5,13 @@ import { COMMENT, GREEN, PURPLE } from "../../helpers/colors";
 import { Spinner } from "../";
 import { Link } from "react-router-dom";
 
-const AddContact = ({ loading, groups, setContactInfo, contact }) => {
+const AddContact = ({
+    loading,
+    groups,
+    setContactInfo,
+    contact,
+    createContactForm,
+}) => {
     return (
         <>
             {loading ? (
@@ -37,7 +43,7 @@ const AddContact = ({ loading, groups, setContactInfo, contact }) => {
                         <hr style={{ backgroundColor: GREEN }} />
                         <div className="row mt-5">
                             <div className="col-md-4">
-                                <form>
+                                <form onSubmit={createContactForm}>
                                     <div className="mb-2">
                                         <input
                                             name="fullname"

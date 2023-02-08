@@ -6,11 +6,16 @@ import {
     EditContact,
     Navbar,
 } from "./components";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
 
-import { getAllContacts, getAllGroups } from "./services/contactService";
+import {
+    createContact,
+    getAllContacts,
+    getAllGroups,
+} from "./services/contactService";
 
 function App() {
+    const navigate = useNavigate();
     const [getContacts, setContacts] = useState([]);
     const [getGroups, setGroups] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -49,6 +54,18 @@ function App() {
         fetchData();
     }, []);
 
+    const createContactForm = async (event) => {
+        event.preventDefault();
+        try {
+            const { status } = await createContact(getContact);
+            if (status === 201) {
+                setContact({})
+                navigate("/contacts")
+            }
+        } catch (err) {
+            console.log(err.message);
+        }
+    };
     return (
         <div className="App">
             <Navbar />
@@ -68,6 +85,7 @@ function App() {
                             contact={getContact}
                             groups={getGroups}
                             setContactInfo={setContactInfo}
+                            createContactForm={createContactForm}
                         />
                     }
                 />

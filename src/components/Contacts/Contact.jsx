@@ -1,7 +1,7 @@
 import React from "react";
 import { CURRENTLINE, CYAN, ORANGE, PURPLE, RED } from "../../helpers/colors";
 
-const Contact = () => {
+const Contact = ({ contact }) => {
     return (
         <div className="col-md-6">
             <div style={{ backgroundColor: CURRENTLINE }} className="card my-2">
@@ -19,18 +19,22 @@ const Contact = () => {
                             <ul className="list-group">
                                 <li className="list-group-item list-group-item-dark">
                                     نام و نام خانوداگی :{"  "}
-                                    <span className="fw-bold">یونس قربانی</span>
+                                    <span className="fw-bold">
+                                        {contact?.fullname}
+                                    </span>
                                 </li>
 
                                 <li className="list-group-item list-group-item-dark">
                                     شماره موبایل :{"  "}
-                                    <span className="fw-bold">09350001122</span>
+                                    <span className="fw-bold">
+                                        {contact?.phone}
+                                    </span>
                                 </li>
 
                                 <li className="list-group-item list-group-item-dark">
                                     آدرس ایمیل :{"  "}
                                     <span className="fw-bold">
-                                        younes.gh@chmail.ir
+                                        {contact?.email}
                                     </span>
                                 </li>
                             </ul>
