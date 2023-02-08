@@ -5,7 +5,7 @@ import { COMMENT, GREEN, PURPLE } from "../../helpers/colors";
 import { Spinner } from "../";
 import { Link } from "react-router-dom";
 
-const AddContact = ({ loading, groups }) => {
+const AddContact = ({ loading, groups, setContactInfo, contact }) => {
     return (
         <>
             {loading ? (
@@ -42,6 +42,8 @@ const AddContact = ({ loading, groups }) => {
                                         <input
                                             name="fullname"
                                             type="text"
+                                            value={contact?.fullname}
+                                            onChange={setContactInfo}
                                             className="form-control"
                                             placeholder="نام و نام خانوادگی"
                                             required={true}
@@ -51,8 +53,8 @@ const AddContact = ({ loading, groups }) => {
                                         <input
                                             name="photo"
                                             type="text"
-                                            /*  value={contact.photo}
-                          onChange={setContactInfo} */
+                                            value={contact.photo}
+                                            onChange={setContactInfo}
                                             className="form-control"
                                             required={true}
                                             placeholder="آدرس تصویر"
@@ -62,8 +64,8 @@ const AddContact = ({ loading, groups }) => {
                                         <input
                                             name="mobile"
                                             type="number"
-                                            /*  value={contact.mobile}
-                          onChange={setContactInfo} */
+                                            value={contact.mobile}
+                                            onChange={setContactInfo}
                                             className="form-control"
                                             required={true}
                                             placeholder="شماره موبایل"
@@ -73,8 +75,8 @@ const AddContact = ({ loading, groups }) => {
                                         <input
                                             type="email"
                                             name="email"
-                                            /*   value={contact.email}
-                          onChange={setContactInfo} */
+                                            value={contact.email}
+                                            onChange={setContactInfo}
                                             className="form-control"
                                             required={true}
                                             placeholder="آدرس ایمیل"
@@ -84,8 +86,8 @@ const AddContact = ({ loading, groups }) => {
                                         <input
                                             type="text"
                                             name="job"
-                                            /* value={contact.job}
-                          onChange={setContactInfo} */
+                                            value={contact.job}
+                                            onChange={setContactInfo}
                                             className="form-control"
                                             required={true}
                                             placeholder="شغل"
@@ -94,8 +96,8 @@ const AddContact = ({ loading, groups }) => {
                                     <div className="mb-2">
                                         <select
                                             name="group"
-                                            /*  value={contact.group}
-                          onChange={setContactInfo} */
+                                            value={contact.group}
+                                            onChange={setContactInfo}
                                             required={true}
                                             className="form-control"
                                         >

@@ -14,15 +14,21 @@ function App() {
     const [getContacts, setContacts] = useState([]);
     const [getGroups, setGroups] = useState([]);
     const [loading, setLoading] = useState(false);
-    const [getContact, set ] = useState({
+    const [getContact, setContact] = useState({
         fullname: "",
         photo: "",
         mobile: "",
         email: "",
         job: "",
-        group: ""
+        group: "",
     });
 
+    const setContactInfo = (event) => {
+        setContact({
+            ...getContact,
+            [event.target.name]: event.target.value,
+        });
+    };
 
     useEffect(() => {
         const fetchData = async () => {
@@ -57,7 +63,12 @@ function App() {
                 <Route
                     path="/contacts/add"
                     element={
-                        <AddContact loading={loading} groups={getGroups} />
+                        <AddContact
+                            loading={loading}
+                            contact={getContact}
+                            groups={getGroups}
+                            setContactInfo={setContactInfo}
+                        />
                     }
                 />
                 <Route path="/contacts/prev/:contactId" element={<Contact />} />
