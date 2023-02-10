@@ -34,7 +34,6 @@ const EditContact = ({ forceRender, setForceRender }) => {
                 const { data: contactData } = await getContact(contactId);
                 const { data: groupsData } = await getAllGroups();
 
-                console.log(groupsData);
                 setState({
                     ...state,
                     loading: false,
