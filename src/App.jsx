@@ -151,6 +151,7 @@ function App() {
                 filteredContacts,
                 setFilteredContacts,
                 groups,
+                contactQuery,
                 onContactChange,
                 deleteContact: confirmDelete,
                 createContact,
@@ -158,7 +159,7 @@ function App() {
             }}
         >
             <div className="App">
-                <Navbar  />
+                <Navbar />
                 <Routes>
                     <Route path="/" element={<Navigate to={"/contacts"} />} />
                     <Route
