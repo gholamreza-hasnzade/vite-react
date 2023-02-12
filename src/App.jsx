@@ -154,7 +154,7 @@ function App() {
                 contactQuery,
                 onContactChange,
                 deleteContact: confirmDelete,
-                createContact,
+                createContact: createContactForm,
                 contactSearch,
             }}
         >
@@ -162,28 +162,8 @@ function App() {
                 <Navbar />
                 <Routes>
                     <Route path="/" element={<Navigate to={"/contacts"} />} />
-                    <Route
-                        path="/contacts"
-                        element={
-                            <Contacts
-                              /*   contacts={filteredContacts}
-                                loading={loading}
-                                confirmDelete={confirmDelete} */
-                            />
-                        }
-                    />
-                    <Route
-                        path="/contacts/add"
-                        element={
-                            <AddContact
-                                loading={loading}
-                                contact={contact}
-                                groups={groups}
-                                setContactInfo={onContactChange}
-                                createContactForm={createContactForm}
-                            />
-                        }
-                    />
+                    <Route path="/contacts" element={<Contacts />} />
+                    <Route path="/contacts/add" element={<AddContact />} />
                     <Route
                         path="/contacts/prev/:contactId"
                         element={<ViewContact />}
