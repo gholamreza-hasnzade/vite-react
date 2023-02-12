@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { confirmAlert } from "react-confirm-alert";
 import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
+import { ContactContext } from "./context/contactContext";
 
 import {
   AddContact,
@@ -26,23 +27,16 @@ import {
 
 function App() {
   const navigate = useNavigate();
-  const [getContacts, setContacts] = useState([]);
-  const [getGroups, setGroups] = useState([]);
-  const [getFilteredContacts, setFilteredContacts] = useState([]);
+  const [contacts, setContacts] = useState([]);
+  const [groups, setGroups] = useState([]);
+  const [filteredContacts, setFilteredContacts] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [forceRender, setForceRender] = useState(false);
-  const [getContact, setContact] = useState({
-    fullname: "",
-    photo: "",
-    mobile: "",
-    email: "",
-    job: "",
-    group: "",
-  });
-  const [query, setQuery] = useState({ text: "" });
-  const setContactInfo = (event) => {
+  const [contact, setContact] = useState({});
+  const [contactQuery, setContactQuery] = useState({ text: "" });
+
+  const onContactChange = (event) => {
     setContact({
-      ...getContact,
+      ...contact,
       [event.target.name]: event.target.value,
     });
   };
@@ -67,29 +61,14 @@ function App() {
     fetchData();
   }, []);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setLoading(true);
-        const { data: contactsData } = await getAllContacts();
-        setContacts(contactsData);
-        setLoading(false);
-      } catch (err) {
-        console.log(err.message);
-        setLoading(false);
-      }
-    };
 
-    fetchData();
-  }, [forceRender]);
 
   const createContactForm = async (event) => {
     event.preventDefault();
     try {
-      const { status } = await createContact(getContact);
+      const { status } = await createContact(contact);
       if (status === 201) {
         setContact({});
-        setForceRender(!forceRender);
         navigate("/contacts");
       }
     } catch (err) {
@@ -97,7 +76,7 @@ function App() {
     }
   };
 
-  const confirm = (contactId, contactFullname) => {
+  const confirmDelete = (contactId, contactFullname) => {
     confirmAlert({
       customUI: ({ onClose }) => {
         return (
@@ -153,8 +132,8 @@ function App() {
   };
 
   const contactSearch = (event) => {
-    setQuery({ ...query, text: event.target.value });
-    const allContancts = getContacts.filter((contact) => {
+    setContactQuery({ ...contactQuery, text: event.target.value });
+    const allContancts = contacts.filter((contact) => {
       return contact.fullname
         .toLowerCase()
         .includes(event.target.value.toLowerCase());
@@ -163,16 +142,16 @@ function App() {
   };
   return (
     <div className="App">
-      <Navbar query={query} search={contactSearch} />
+      <Navbar query={contactQuery} search={contactSearch} />
       <Routes>
         <Route path="/" element={<Navigate to={"/contacts"} />} />
         <Route
           path="/contacts"
           element={
             <Contacts
-              contacts={getFilteredContacts}
+              contacts={filteredContacts}
               loading={loading}
-              confirmDelete={confirm}
+              confirmDelete={confirmDelete}
             />
           }
         />
@@ -181,9 +160,9 @@ function App() {
           element={
             <AddContact
               loading={loading}
-              contact={getContact}
-              groups={getGroups}
-              setContactInfo={setContactInfo}
+              contact={contact}
+              groups={groups}
+              setContactInfo={onContactChange}
               createContactForm={createContactForm}
             />
           }
@@ -193,8 +172,7 @@ function App() {
           path="/contacts/edit/:contactId"
           element={
             <EditContact
-              forceRender={forceRender}
-              setForceRender={setForceRender}
+              
             />
           }
         />

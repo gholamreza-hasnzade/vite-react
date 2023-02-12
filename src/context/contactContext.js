@@ -1,6 +1,6 @@
 import { createContext } from "react";
 
-export const ContactContext = ContactContext({
+export const ContactContext = createContext({
     loading: false,
     setLoading: () => {},
     contact: {},

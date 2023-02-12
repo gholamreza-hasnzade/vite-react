@@ -11,7 +11,7 @@ import { Spinner } from "../";
 import { COMMENT, ORANGE, PURPLE } from "../../helpers/colors";
 import maNtakingNote from "../../assets/man-taking-note.png";
 
-const EditContact = ({ forceRender, setForceRender }) => {
+const EditContact = () => {
     const { contactId } = useParams();
     const navigate = useNavigate();
     const [state, setState] = useState({
@@ -67,7 +67,7 @@ const EditContact = ({ forceRender, setForceRender }) => {
             setState({ ...state, loading: false });
 
             if (data) {
-                setForceRender(!forceRender);
+               
                 navigate("/contacts");
             }
         } catch (err) {
