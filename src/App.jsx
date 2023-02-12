@@ -166,9 +166,9 @@ function App() {
                         path="/contacts"
                         element={
                             <Contacts
-                                contacts={filteredContacts}
+                              /*   contacts={filteredContacts}
                                 loading={loading}
-                                confirmDelete={confirmDelete}
+                                confirmDelete={confirmDelete} */
                             />
                         }
                     />
