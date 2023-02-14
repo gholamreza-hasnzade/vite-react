@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 
 import { Link, useNavigate, useParams } from "react-router-dom";
 
@@ -10,73 +10,69 @@ import {
 import { Spinner } from "../";
 import { COMMENT, ORANGE, PURPLE } from "../../helpers/colors";
 import maNtakingNote from "../../assets/man-taking-note.png";
+import { ContactContext } from "../../context/contactContext";
 
 const EditContact = () => {
+    const {
+        loading,
+        setLoading,
+        groups,
+        contacts,
+        setContacts,
+        setFilteredContacts,
+    } = useContext(ContactContext);
+    const [contact, setContact] = useState({});
+
     const { contactId } = useParams();
     const navigate = useNavigate();
-    const [state, setState] = useState({
-        loading: false,
-        contact: {
-            fullname: "",
-            photo: "",
-            mobile: "",
-            email: "",
-            job: "",
-            group: "",
-        },
-        groups: [],
-    });
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                setState({ ...state, loading: true });
+                setLoading(true);
                 const { data: contactData } = await getContact(contactId);
-                const { data: groupsData } = await getAllGroups();
 
-                setState({
-                    ...state,
-                    loading: false,
-                    contact: contactData,
-                    groups: groupsData,
-                });
+                setLoading(false);
+                setContact(contactData);
             } catch (error) {
                 console.log(error.message);
-                setState({ ...state, loading: false });
+                setContact({});
+                setLoading(false);
             }
         };
         fetchData();
     }, []);
 
-    const setContactInfo = (event) => {
-        setState({
-            ...state,
-            contact: {
-                ...state.contact,
-                [event.target.name]: [event.target.value],
-            },
+    const setContactChange = (event) => {
+        setContact({
+            ...contact,
+            [event.target.name]: event.target.value,
         });
     };
 
     const submitForm = async (event) => {
         event.preventDefault();
         try {
-            setState({ ...state, loading: true });
+            setLoading(true);
+            const { data, status } = await updateContact(contact, contactId);
+            if (status === 200) {
+                setLoading(false);
 
-            const { data } = await updateContact(state.contact, contactId);
-            setState({ ...state, loading: false });
-
-            if (data) {
-               
+                const allContancts = [...contacts];
+                const contactIndex = allContancts.findIndex(
+                    (c) => c.id === Number(contactId)
+                );
+                allContancts[contactIndex] = { ...data };
+                setContacts(allContancts);
+                setFilteredContacts(allContancts);
                 navigate("/contacts");
             }
         } catch (err) {
             console.log(err);
-            setState({ ...state, loading: false });
+            setLoading(true);
         }
     };
 
-    const { loading, contact, groups } = state;
     return (
         <>
             {loading ? (
@@ -112,7 +108,7 @@ const EditContact = () => {
                                                     type="text"
                                                     className="form-control"
                                                     value={contact.fullname}
-                                                    onChange={setContactInfo}
+                                                    onChange={setContactChange}
                                                     required={true}
                                                     placeholder="نام و نام خانوادگی"
                                                 />
@@ -122,7 +118,7 @@ const EditContact = () => {
                                                     name="photo"
                                                     type="text"
                                                     value={contact.photo}
-                                                    onChange={setContactInfo}
+                                                    onChange={setContactChange}
                                                     className="form-control"
                                                     required={true}
                                                     placeholder="آدرس تصویر"
@@ -134,7 +130,7 @@ const EditContact = () => {
                                                     type="number"
                                                     className="form-control"
                                                     value={contact.mobile}
-                                                    onChange={setContactInfo}
+                                                    onChange={setContactChange}
                                                     required={true}
                                                     placeholder="شماره موبایل"
                                                 />
@@ -145,7 +141,7 @@ const EditContact = () => {
                                                     type="email"
                                                     className="form-control"
                                                     value={contact.email}
-                                                    onChange={setContactInfo}
+                                                    onChange={setContactChange}
                                                     required={true}
                                                     placeholder="آدرس ایمیل"
                                                 />
@@ -156,7 +152,7 @@ const EditContact = () => {
                                                     type="text"
                                                     className="form-control"
                                                     value={contact.job}
-                                                    onChange={setContactInfo}
+                                                    onChange={setContactChange}
                                                     required={true}
                                                     placeholder="شغل"
                                                 />
@@ -165,7 +161,7 @@ const EditContact = () => {
                                                 <select
                                                     name="group"
                                                     value={contact.group}
-                                                    onChange={setContactInfo}
+                                                    onChange={setContactChange}
                                                     required={true}
                                                     className="form-control"
                                                 >

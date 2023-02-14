@@ -7,7 +7,6 @@ export const ContactContext = createContext({
     setContacts: () => {},
     setFilteredContacts: () => {},
     contacts: [],
-    filteredContacts: [],
     contactQuery: {},
     groups: [],
     onContactChange: () => {},
