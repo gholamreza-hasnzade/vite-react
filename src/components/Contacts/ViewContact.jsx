@@ -1,14 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 
 import { Spinner } from "../";
 import { CURRENTLINE, CYAN, PURPLE } from "../../helpers/colors";
 import { Link, useParams } from "react-router-dom";
 import { getContact, getGroup } from "../../services/contactService";
+import { ContactContext } from "../../context/contactContext";
 
 const ViewContact = () => {
+    const { loading, setLoading } = useContext(ContactContext);
     const { contactId } = useParams();
     const [state, setstate] = useState({
-        loading: false,
         contact: {},
         group: {},
     });
@@ -16,25 +17,27 @@ const ViewContact = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                setstate({ ...state, loading: true });
+                setstate({ ...state });
+                setLoading(true);
                 const { data: contactData } = await getContact(contactId);
                 const { data: groupData } = await getGroup(contactData.group);
 
+                setLoading(false);
                 setstate({
                     ...state,
-                    loading: false,
                     contact: contactData,
                     group: groupData,
                 });
             } catch (error) {
                 console.log(error.message);
-                setstate({ ...state, loading: false });
+                setstate({ ...state });
+                setLoading(false);
             }
         };
         fetchData();
     }, []);
 
-    const { loading, contact, group } = state;
+    const { contact, group } = state;
 
     return (
         <>
