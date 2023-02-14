@@ -46,7 +46,7 @@ const AddContact = () => {
                                         <input
                                             name="fullname"
                                             type="text"
-                                            value={contact?.fullname}
+                                            value={contact.fullname}
                                             onChange={onContactChange}
                                             className="form-control"
                                             placeholder="نام و نام خانوادگی"
@@ -57,7 +57,7 @@ const AddContact = () => {
                                         <input
                                             name="photo"
                                             type="text"
-                                            value={contact?.photo}
+                                            value={contact.photo}
                                             onChange={onContactChange}
                                             className="form-control"
                                             required={true}
@@ -68,7 +68,7 @@ const AddContact = () => {
                                         <input
                                             name="mobile"
                                             type="number"
-                                            value={contact?.mobile}
+                                            value={contact.mobile}
                                             onChange={onContactChange}
                                             className="form-control"
                                             required={true}
@@ -90,7 +90,7 @@ const AddContact = () => {
                                         <input
                                             type="text"
                                             name="job"
-                                            value={contact?.job}
+                                            value={contact.job}
                                             onChange={onContactChange}
                                             className="form-control"
                                             required={true}
@@ -100,7 +100,7 @@ const AddContact = () => {
                                     <div className="mb-2">
                                         <select
                                             name="group"
-                                            value={contact?.group}
+                                            value={contact.group}
                                             onChange={onContactChange}
                                             required={true}
                                             className="form-control"

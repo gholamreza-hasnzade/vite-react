@@ -38,7 +38,7 @@ const Contacts = () => {
                         {contacts.length > 0 ? (
                             contacts.map((c) => (
                                 <Contact
-                                deleteContact={() =>
+                                    deleteContact={() =>
                                         deleteContact(c.id, c.fullname)
                                     }
                                     key={c.id}
