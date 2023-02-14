@@ -124,17 +124,24 @@ function App() {
     };
 
     const removeContact = async (contactId) => {
+        const allContancts = [...contacts];
         try {
-            setLoading(true);
-            const response = await deleteContact(contactId);
-            if (response) {
-                const { data: contactsData } = await getAllContacts();
-                setContacts(contactsData);
-                setLoading(false);
+            const updatedContact = allContancts.filter(
+                (c) => c.id !== Number(contactId)
+            );
+            setContacts(updatedContact);
+            setFilteredContacts(updatedContact);
+
+            // sending delete request
+            const { status } = await deleteContact(contactId);
+
+            if (status !== 200) {
+                setContacts(allContancts);
+                setFilteredContacts(allContancts);
             }
         } catch (err) {
-            console.log(err.message);
-            setLoading(false);
+            setContacts(allContancts);
+            setFilteredContacts(allContancts);
         }
     };
 
