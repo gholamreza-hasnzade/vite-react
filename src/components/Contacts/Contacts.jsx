@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import { ContactContext } from "../../context/contactContext";
 
 const Contacts = () => {
-    const { contacts, deleteContact, loading } = useContext(ContactContext);
+    const { filteredContacts, deleteContact, loading } = useContext(ContactContext);
 
     return (
         <>
@@ -35,8 +35,8 @@ const Contacts = () => {
             ) : (
                 <section className="container">
                     <div className="row">
-                        {contacts.length > 0 ? (
-                            contacts.map((c) => (
+                        {filteredContacts.length > 0 ? (
+                            filteredContacts.map((c) => (
                                 <Contact
                                     deleteContact={() =>
                                         deleteContact(c.id, c.fullname)
