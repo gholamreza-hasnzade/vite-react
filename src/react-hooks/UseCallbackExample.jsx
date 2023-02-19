@@ -37,7 +37,7 @@ const UseCallbackExample = () => {
                     setColorChange((prevColorChange) => !prevColorChange)
                 }
             >
-                تغییر رنگ پس زمینه 🏳️‍🌈
+                تغییر رنگ پس زمینه
             </button>
             <div style={appStyle} className="text-center mx-auto">
                 <List getItems={getItems} />
