@@ -1,10 +1,31 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+
+const superSlowFunction = (num) => {
+     console.log("Super Slow Function Is Running 🦥");
+    let count = 0;
+    //NOTE Delay the return
+    while (count <= 1000000000) {
+        count++;
+    }
+    return num * 2;
+};
 
 const UseMemoExample = () => {
     const [number, setNumber] = useState(0);
     const [colorChange, setColorChange] = useState(false);
+
+    const appStyle = {
+        backgroundColor: colorChange ? "tomato" : "white",
+    };
+
+    const doubleNumber = superSlowFunction(number);
+
+    useEffect(() => {
+        console.log("Background Changed 🌈"); //NOTE Uncomment when testing
+    }, [appStyle]);
+
     return (
-        <div lassName="mx-auto mt-5 d-grid gap-3 w-50">
+        <div className="mx-auto mt-5 d-grid gap-3 w-50" style={appStyle}>
             <h5 className="alert alert-primary text-center">
                 آشنایی با هوک useMemo
             </h5>
@@ -24,9 +45,8 @@ const UseMemoExample = () => {
             >
                 رنگ رو تغییر بده 🖌️
             </button>
-            <div /* style={appStyle} */ className="text-center mx-auto">
-                <p className="alert alert-warning">{`عدد دو برابر شده برابر است با : 0`}</p>
-                {/* ${doubleNumber} */}
+            <div style={appStyle} className="text-center mx-auto">
+                <p className="alert alert-warning">{` دو برابر شده برابر است با : ${doubleNumber}`}</p>
             </div>
         </div>
     );
