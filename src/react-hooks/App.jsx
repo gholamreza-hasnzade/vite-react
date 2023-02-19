@@ -2,6 +2,7 @@ import React from "react";
 import UseRefExample from "./UseRefExample";
 import UseMemoExample from "./UseMemoExample";
 import Accordion from "./components/Accordion";
+import UseCallbackExample from "./UseCallbackExample";
 
 const App = () => {
     return (
@@ -17,6 +18,15 @@ const App = () => {
 
             <Accordion title="مثال آموزشی هوک useMemo" heading="headingTwo">
                 <UseMemoExample />
+            </Accordion>
+
+            <hr className="text-danger" />
+
+            <Accordion
+                title="مثال آموزشی هوک useCallback"
+                heading="headingThree"
+            >
+                <UseCallbackExample />
             </Accordion>
         </div>
     );
