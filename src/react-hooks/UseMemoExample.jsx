@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useMemo } from "react";
 
 const superSlowFunction = (num) => {
-    console.log("Super Slow Function Is Running 🦥");
+   // console.log("Super Slow Function Is Running 🦥");
     let count = 0;
     //NOTE Delay the return
     while (count <= 1000000000) {
@@ -26,7 +26,7 @@ const UseMemoExample = () => {
     const doubleNumber = useMemo(() => superSlowFunction(number), [number]);
 
     useEffect(() => {
-        console.log("Background Changed 🌈"); //NOTE Uncomment when testing
+        //console.log("Background Changed 🌈"); //NOTE Uncomment when testing
     }, [appStyle]);
 
     return (
